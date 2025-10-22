@@ -1,9 +1,9 @@
 package me.metallicgoat.gensplitter.events;
 
 import de.marcely.bedwars.api.arena.Arena;
-import de.marcely.bedwars.levelshop.api.LevelShopAPI;
-import de.marcely.bedwars.levelshop.api.PlayerPickupLevelItemEvent;
-import de.marcely.bedwars.levelshop.api.PlayerPickupOrbEvent;
+import de.marcely.bedwars.api.levelshop.LevelShopAPI;
+import de.marcely.bedwars.api.levelshop.PlayerPickupLevelItemEvent;
+import de.marcely.bedwars.api.levelshop.PlayerPickupOrbEvent;
 import me.metallicgoat.gensplitter.config.ConfigValue;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -54,11 +54,11 @@ public class ExpLevelSplit implements Listener {
 
       Bukkit.getPluginManager().callEvent(wrapper);
 
-      if (wrapper.getLevelAmount() == 0)
+      if (wrapper.getPerItemLevelAmount() == 0)
         return;
 
       // all good, lets give it him
-      final int newLevel = split.getLevel() + wrapper.getLevelAmount();
+      final int newLevel = split.getLevel() + wrapper.getPerItemLevelAmount();
 
       LevelShopAPI.get().setEarnedLevel(split, splitLoc, newLevel);
     });
