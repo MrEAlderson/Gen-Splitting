@@ -4,12 +4,10 @@ import de.marcely.bedwars.api.GameAPI;
 import de.marcely.bedwars.api.arena.Arena;
 import de.marcely.bedwars.api.event.player.PlayerPickupDropEvent;
 import de.marcely.bedwars.tools.Helper;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.BiConsumer;
 import me.metallicgoat.gensplitter.config.ConfigValue;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -17,8 +15,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
 public class ItemSplit implements Listener {
-
-  private static final Sound PICKUP_SOUND = Helper.get().getSoundByName("ENTITY_ITEM_PICKUP");
 
   @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
   public void onPlayerPickupDropEvent(PlayerPickupDropEvent event) {
@@ -45,9 +41,7 @@ public class ItemSplit implements Listener {
 
       // all good, lets give it him
       split.getInventory().addItem(pickedUpStack);
-
-      if (PICKUP_SOUND != null) // volume and pitch copied from server code
-        collectLocation.getWorld().playSound(collectLocation, PICKUP_SOUND, .1F, ThreadLocalRandom.current().nextFloat() * 1.4f + 1.3f);
+      Helper.get().playPickupItemSound(splitLoc);
     });
   }
 
